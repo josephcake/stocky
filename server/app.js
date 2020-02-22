@@ -5,13 +5,16 @@ const app = express()
 const cors = require("cors");
 const port = 9000
 
-const demo = "https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=EUR&to_symbol=USD&apikey=demo"
-const test = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=0BSNGA5PV8BOVQ5W'
-const demo2 = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo"
-app.use(cors())
 
+const test = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=0BSNGA5PV8BOVQ5W'
+const demoDaily = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo"
+const demoMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=demo"
+app.use(cors())
 app.get('/', (req, res) => {
-    fetch(demo2)
+    // const {function, symbol} = req.query    
+    console.log(req.param.TIME)
+    // console.log("res",res)
+    fetch(demoMonthly)
             .then(res => {
                 if (res.status >= 400) {
                 throw new Error("Bad response from server");
@@ -24,10 +27,29 @@ app.get('/', (req, res) => {
             })
             .catch(err => {
                 console.error(err);
-            });
-    // res.send('Hello Stocky!')
+            });    
 })
-
+app.get('/api/', (req, res) => {    
+    const header = req.headers
+    res.send(header)
+})
+app.get('/api/symbol', (req, res) => {    
+    const symbol = req.headers.symbol
+    //https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=sony&apikey=demo
+    fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=demo`)
+    .then(res => {
+        if (res.status >= 400) {
+        throw new Error("Bad response from server");
+        }
+        return res.json();
+    })
+    .then(response => {        
+        res.send(response)
+    })
+    .catch(err => {
+        console.error(err);
+    });        
+})
 
 // let test =  fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=0BSNGA5PV8BOVQ5W')
 //             .then(res => {
