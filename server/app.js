@@ -1,4 +1,4 @@
-// API KEY: 0BSNGA5PV8BOVQ5W
+const API_KEY = process.env.REACT_APP_API_KEY;
 const express = require("express");
 const {connectDB, URL} = require("./db/Connection");
 const userPost = require("./api/User")
@@ -12,7 +12,7 @@ const port = process.env.Port || 9000;
 connectDB();
 
 const test =
-  "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=0BSNGA5PV8BOVQ5W";
+  `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=${API_KEY}`;
 const demoDaily =
   "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo";
 const demoMonthly =
@@ -25,11 +25,11 @@ app.use("/api/userUpdate", userUpdate)
 
 
 app.get("/api/globalquote", (req, res)=>{
-  let uri = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.headers.symbol}&apikey=0BSNGA5PV8BOVQ5W`
+  let uri = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.headers.symbol}&apikey=${API_KEY}`
   if (req.headers.symbol === "demo") {
     uri = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo"
   }
-  fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.headers.symbol}&apikey=0BSNGA5PV8BOVQ5W`)
+  fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.headers.symbol}&apikey=${API_KEY}`)
     .then(res => {
       if (res.status >= 400) {
         throw new Error("Bad response from server");
@@ -46,7 +46,7 @@ app.get("/api/globalquote", (req, res)=>{
 
 app.get("/api/", (req, res) => {  
   console.log(req.headers);  
-  let uri = `https://www.alphavantage.co/query?function=${req.headers.timeselected}&symbol=${req.headers.symbol}${req.headers.timeselected === "TIME_SERIES_INTRADAY" ? "&interval=15min" : ''}&apikey=0BSNGA5PV8BOVQ5W`
+  let uri = `https://www.alphavantage.co/query?function=${req.headers.timeselected}&symbol=${req.headers.symbol}${req.headers.timeselected === "TIME_SERIES_INTRADAY" ? "&interval=15min" : ''}&apikey=${API_KEY}`
   if(req.headers.symbol === "demo"){
     uri = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=demo"
   }
@@ -69,7 +69,7 @@ app.get("/api/", (req, res) => {
 app.get("/api/symbol", (req, res) => {
   const symbol = req.headers.symbol;  
   fetch(
-    `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=0BSNGA5PV8BOVQ5W`
+    `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=${API_KEY}`
   )
     .then(res => {
       if (res.status >= 400) {
