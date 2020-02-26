@@ -1,7 +1,16 @@
-# stocky
+# Stocky
 Virtual stock game
-Start off by running *npm install* (install all dependencies)
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Installing
+Start off by running 
+```npm install``` (install all dependencies)
 Within the ##server/folder run:
-#node app.js
+```node app.js```
 Within the ##client/folder run:
-#npm start
+```npm start```
+
+
+[Stocky](https://stockyy.herokuapp.com/)
