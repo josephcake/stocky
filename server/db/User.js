@@ -6,6 +6,12 @@ const user = new mongoose.Schema({
     },
     password:{
         type:String,        
+    },
+    wallet:{
+        type:Number
+    },
+    data:{
+        type:Array
     }
 })
 

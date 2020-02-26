@@ -1,7 +1,9 @@
 // API KEY: 0BSNGA5PV8BOVQ5W
 const express = require("express");
 const {connectDB, URL} = require("./db/Connection");
-const {userPost,  userEmailGet} = require("./api/User")
+const userPost = require("./api/User")
+const userUpdate = require("./api/UserUpdate")
+const userEmailGet = require("./api/GetEmail")
 const fetch = require("cross-fetch");
 const app = express();
 const cors = require("cors");
@@ -19,6 +21,7 @@ app.use(cors());
 app.use(express.json({extended:false}))
 app.use("/api/userModel", userPost)//mongo User model
 app.use("/api/userEmail", userEmailGet)
+app.use("/api/userUpdate", userUpdate)
 
 
 app.get("/api/globalquote", (req, res)=>{

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+mongoose.set('useFindAndModify', false);
 const URL =
   "mongodb+srv://user:stocky@stocky-users-sholn.mongodb.net/test?retryWrites=true&w=majority";
 
