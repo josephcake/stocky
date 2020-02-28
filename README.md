@@ -17,4 +17,4 @@ Start off by running
 
 
 
-[Stocky](https://stockyy.herokuapp.com/)
+[Stocky](http://stockyy.herokuapp.com/)
